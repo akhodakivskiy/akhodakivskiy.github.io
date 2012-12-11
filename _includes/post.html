@@ -6,7 +6,7 @@
     </header>
 
     <section>
-        {{ post.content | more: more }}
+        {{ content | more: more }}
     </section>
 
     <section>
@@ -14,7 +14,7 @@
             <dt>Tags:</dt>
             {% for tag in post.tags %}
             <dd>
-                <a href="/tags#{{ tag }}-ref">
+                <a href="/tags.html#tag-{{ tag | slugify }}">
                     <span class="radius label">{{ tag }}</span>
                 </a>
             </dd>

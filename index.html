@@ -8,6 +8,7 @@ layout: default
         {% assign more = "excerpt" %}
 
         {% for post in paginator.posts %}
+            {% assign content = post.content %}
             {% include post.html %}
         {% endfor %}
 
