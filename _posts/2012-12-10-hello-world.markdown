@@ -1,6 +1,6 @@
 ---
 layout: post
-tags: [ blog, jekyll, git, github:pages ]
+tags: [ blog, jekyll, github:pages ]
 title: Hello World!
 ---
 

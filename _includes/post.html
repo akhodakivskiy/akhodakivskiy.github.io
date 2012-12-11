@@ -27,7 +27,7 @@
                 </a>
             </dd>
             {% endfor %}
-            {% if more == "excerpt" %}
+            {% if more == "excerpt" and site.disqus %}
                 <dt>
                     <a href="{{ post.url }}#disqus_thread"></a>
                 </dt>
