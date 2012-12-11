@@ -2,7 +2,10 @@
 
     <header>
         <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
-        <h5 class="subheader">Posted on {{ post.date | date: "%B %d, %Y" }}</h5>
+        <h5 class="subheader">
+            Posted on {{ post.date | date: "%B %d, %Y" }}
+        </h5>
+
     </header>
 
     <section>
@@ -21,13 +24,21 @@
             {% endfor %}
             {% if more == "excerpt" %}
                 <dt>
-                    <script>
-                        var idcomments_acct = '1097d14ad063821782039076bd36c58d';
-                        var idcomments_post_id = "{{ post.id | remove : '-' | remove : '/' }}";
-                        var idcomments_post_url = "{{ post.url }}";
-                    </script>
-                    <script type="text/javascript" src="http://www.intensedebate.com/js/genericLinkWrapperV2.js"></script>
+                    <a href="{{ post.url }}#disqus_thread"></a>
                 </dt>
+                <script type="text/javascript">
+                    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+                    var disqus_shortname = 'akhodakivskiy-til'; // required: replace example with your forum shortname
+
+                    /* * * DON'T EDIT BELOW THIS LINE * * */
+                    (function () {
+                        var s = document.createElement('script'); s.async = true;
+                        s.type = 'text/javascript';
+                        s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+                        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+                    }());
+                </script>
+        
             {% endif %}
         </dl>
     </section>
