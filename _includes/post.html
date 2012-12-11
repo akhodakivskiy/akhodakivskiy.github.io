@@ -10,7 +10,7 @@
 
     <section>
         {% if less %}
-            {{ content | split: "<!--more-->" | first }}
+            {{ content | truncatewords: 200 }}
         {% else %}
             {{ content }}
         {% endif %}

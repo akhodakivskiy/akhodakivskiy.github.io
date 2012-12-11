@@ -17,8 +17,6 @@ ton of different hosted blogging platforms - Wordpress, Blogger, Tubmblr to name
 [GiHub:Pages](http://pages.github.com/) and [Jekyll](https://github.com/mojombo/jekyll). This neat combo currently 
 drives my blog.
 
-<!--more-->
-
 Jekyll is a blow aware static site generator. It runs on a bunch of templated files and outputs static HTML which can 
 be hosted virtually anywhere, and on GitHub:Pages in particular. GitHub:Pages will run Jekyll begind the scenes, 
 and serve the generated site. My job was to set up all the templates and configuration. There is a few prebuilt solutions 
