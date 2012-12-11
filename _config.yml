@@ -1,6 +1,7 @@
 auto: true
 pygments: true
 paginate: 5
+abstract_size: 150
 
 disqus: true
 title : TIL

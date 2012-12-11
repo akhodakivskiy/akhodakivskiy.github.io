@@ -13,31 +13,24 @@
     <!-- Set the viewport width to device width for mobile -->
     <meta name="viewport" content="width=device-width" />
 
-    <title>TIL | Anton Khodakivskiy Blog</title>
+    <title> TIL {% if page.title %} | {{ page.title }} {% endif %} </title>
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
 
-    <!-- Included CSS Files (Compressed) -->
     <link rel="stylesheet" href="/assets/foundation/stylesheets/foundation.min.css">
     <link rel="stylesheet" href="/assets/foundation/stylesheets/app.css">
     <link rel="stylesheet" href="/assets/css/pygments.css">
+
+    <link rel="alternate" type="application/atom+xml" href="http://akhodakivskiy.github.com/atom.xml" />
 
     <script src="/assets/foundation/javascripts/modernizr.foundation.js"></script>
 </head>
 <body>
 
-    <header class="row">
-        <div class="twelve columns">
-            {% include header.html %}
-        </div>
-    </header>
+    {% include header.html %}
 
     {{ content }}
 
-    <footer class="row">
-        <div class="twelve columns">
-            {% include footer.html %}
-        </div>
-    </footer>
+    {% include footer.html %}
 
     <!-- Included JS Files (Compressed) -->
     <script src="/assets/foundation/javascripts/jquery.js"></script>
@@ -46,5 +39,7 @@
     <!-- Initialize JS Plugins -->
     <script src="/assets/foundation/javascripts/app.js"></script>
 
-    </body>
+    {% include ga.html %}
+
+</body>
 </html>

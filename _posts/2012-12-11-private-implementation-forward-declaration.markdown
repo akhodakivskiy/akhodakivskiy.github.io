@@ -6,13 +6,15 @@ title: Forward Declaration and Private Implementation in C++
 
 {% capture column_left %}
 
-Includes in C/C++ are extremely inefficient. It's uncommon to find a system where a single hange to a header file
+Well... I catually learned this a long time ago, but nevertheless.
+
+Includes in C/C++ are extremely inefficient. It's not uncommon to find a system where a single change to a header file
 file would cause 10 minutes recompilation. I used to suffer from this a lot. I could count the number of times my code
 had compiled (or not) in a day by the number of tea/coffee cups consumed plus the number of articles read.
 
 There's been a lot of discussion on C++ modules recently. [These slides by Doug Gregor][dg] explain what's happening 
 under the hood, why C++ compilation tends to be so slow, and how C++ modules can help. The bottom line is that compiling
-even a single source file take a while.
+even a single source file might take a while.
 
 {% endcapture %}
 
@@ -23,7 +25,7 @@ even a single source file take a while.
 <div class="panel" markdown="1">
 
 ![It's Compiling](http://imgs.xkcd.com/comics/compiling.png)
-[Source: XKCD #303][xkcd]
+[XKCD #303][xkcd]
 
 </div>
 
@@ -33,12 +35,12 @@ even a single source file take a while.
 
 #### What's the big deal?
 
-In a typical coding routine one might make a few changes to a sinlge file and then check if the software still compiles. 
+In a typical coding routine one might make a few changes to a single file and then check if the software still compiles. 
 Changing a `.cpp` implementation file won't take much time to recompile. But things get worse if a `.h` header is changed. In 
-this case all the implementation files that directly or indirectly include the hedaer in question will require a round of 
+this case all the implementation files that directly or indirectly include the header in question will require a round of 
 recompilation (`three.h` might include `two.h` indirectly including `one.h`). A small change might result in 
 recompiling hundreds of files. And most of these files wouldn't use anything from the modified header.  
-Time to get another coffee, read and article, or engage in a sword fight with your colleague.
+Time to get another coffee, read an article, or engage in a sword fight with your colleague.
 
 While it's hard to make GCC compile stuff faster, there are a few things that can be done to optimize the compilation,
 namely:
@@ -98,12 +100,12 @@ int Two::squareUsingOne(int x) {
 
 {% include two_columns.html %}
 
-In this example changing the header `one.h` would cause recomplication of all the source files that directly or
+In this example changing the header `one.h` would cause recompilation of all the source files that directly or
 indirectly include both `one.h` and `two.h`. If `two.h` is an important header and has lots of dependents then all this
-subtree will require a round of recompilation.
+sub tree will require a round of recompilation.
 
 But there is no need to include `one.h` from `two.h` because the definition of `class Two` doesn't need to
-know anything anout the definition of `class One`. It's enough to know that the constructor argument `One *one` 
+know anything about the definition of `class One`. It's enough to know that the constructor argument `One *one` 
 is a pointer to an instance of a class... some class defined later on. Thus we can forward declare `class One` 
 and move `#include one.h` into the the implementation file `two.cpp`:
 
@@ -141,8 +143,8 @@ int Two::squareUsingOne(int x) {
 
 {% include two_columns.html %}
 
-In this setup we avoid recompilation fo all the dependents of `two.h`, which may or may not be a lot of CPU cycles. If it's
-not a lot of work - then good for you, your codebase is probably well decoupled.  
+In this setup we avoid recompilation of all the dependents of `two.h`, which may or may not be a lot of CPU cycles. If it's
+not a lot of work - then good for you, your code base is probably well decoupled.  
 But quite often this simple technique will save you a lot of time.
 
 #### Avoid changing headers (Private Implementation) { #pimpl }
@@ -213,6 +215,8 @@ class Two {
         int squareUsingOne(int x);
     ...
     private:
+        Two(const Two &two);
+        Two &operator=(const Two &two);
         TwoPrivate *d;
 };
 {% endhighlight %}
@@ -253,12 +257,14 @@ What happened here? A few things.
 
 - `class Two` doesn't have `class One` as an instance member anymore,
 - `class Two` now has a pointer member to `class TwoPrivate`. It's [forward declared](#fdecl) because we only deal with a pointer,
-- `class TwoPrivate` is instantiated and descroyed along with `class Two` and is accessible via the `TwoPrivate *d` pointer,
+- `class Two` has disabled copy constructor and assignment operator in order to [avoid memory leaks and double
+  deletion][reddit].
+- `class TwoPrivate` is instantiated and destroyed along with `class Two` and is accessible via the `TwoPrivate *d` pointer,
 - `class One` is now an instance member of `class TwoPrivate`, accessible in `class Two` members via `d->m_One`,
 - Consequently the troubling `#include "one.h"` has been moved from the header `two.h` to the implementation `two.cpp`
   slashing a branch of the inclusion tree.
 
-There are quire a few benefits from this pattern. To name a few,
+There are quite a few benefits from using this pattern. To name a few
 
 - The implementation of the class that uses private implementation doesn't affect the interface at all! Members and
   methods can now be added and removed, and only the `.cpp` implementation file will require recompilation,
@@ -267,8 +273,13 @@ There are quire a few benefits from this pattern. To name a few,
   can safely change the implementation, add/remove private members and methods, and have an interface that's compatible
   with previous versions.
 
-The only drawback from applying the Private Implementation pattern is a slight increase in memory allocation - 
-from 12 bytes more per object depending on the platform .
+There some drawback as well
+
+- There is a slight increase in memory allocation - from 12 bytes per object depending on the platform.
+- Everything that belongs to the Private Implementation will be allocated on the heap. Heap allocation is usually much 
+  more expensive than stack allocation. Frequent and long lasting heap allocations often lead to dramatic memory 
+  framentation further decreasing performance.
+- There is additional pointer indirection every time Private Implementation member or method is accessed.
 
 #### Conclusion
 
@@ -279,3 +290,4 @@ save a lot of CPU cycles avoiding unnecessary recompilation, and make your code 
 [xkcd]: http://xkcd.com/303/
 [fd]: http://en.wikipedia.org/wiki/Forward_declaration
 [pi]: http://en.wikipedia.org/wiki/Private_class_data_pattern
+[reddit]: http://www.reddit.com/r/programming/comments/14no5v/forward_declaration_and_private_implementation_in/c7ey70s
