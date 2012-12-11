@@ -9,7 +9,12 @@
     </header>
 
     <section>
-        {{ content | more: more }}
+        {% if less %}
+            {{ content | split: "<!--more-->" | first }}
+        {% else %}
+            {{ content }}
+        {% endif %}
+
     </section>
 
     <section>
