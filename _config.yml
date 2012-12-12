@@ -1,6 +1,6 @@
 auto: true
 pygments: true
-paginate: 1
+paginate: 5
 abstract_size: 150
 
 disqus: true
