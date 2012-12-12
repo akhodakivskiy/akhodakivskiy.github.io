@@ -22,10 +22,15 @@ even a single source file might take a while.
 
 {% capture column_right %}
 
-<div class="panel" markdown="1">
+<div class="thumbnail centered-text" markdown="1">
 
 ![It's Compiling](http://imgs.xkcd.com/comics/compiling.png)
+
+<p>
+
 [XKCD #303][xkcd]
+
+</p>
 
 </div>
 

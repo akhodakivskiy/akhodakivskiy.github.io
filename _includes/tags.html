@@ -1,8 +1,8 @@
 <h5>Tags</h5>
-<ul class="disc">
+<ul>
     {% for tag in site.tags %}
         <li>
-            <a class="label radius" href="/tags.html#tag-{{ tag[0] | slugify }}">{{ tag[0] }}</a>
+            <a class="label label-info" href="/tags.html#tag-{{ tag[0] | slugify }}">{{ tag[0] }}</a>
             <span>({{ tag[1].size }})</span>
         </li>
     {% endfor %}

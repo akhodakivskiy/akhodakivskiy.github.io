@@ -4,7 +4,7 @@ layout: default
 
 <div class="row">
 
-    <div class="eight columns">
+    <div class="span8">
         {% assign abstract = true %}
 
         {% for post in paginator.posts %}
@@ -13,29 +13,30 @@ layout: default
         {% endfor %}
 
 
-        {% assign page_older = "&larr; Older Posts" %}
-        {% assign page_newer = "Newer Posts &rarr;" %}
-        <div class="row">
+        {% assign page_older = "&larr; Older" %}
+        {% assign page_newer = "Newer &rarr;" %}
+        <ul class="pager">
 
-            <div class="three columns">
-                {% if paginator.previous_page %}
+            {% if paginator.previous_page %}
+                <li class="previous">
                     {% if paginator.previous_page == 1 %}
                         <a href="/">{{ page_older }}</a>
                     {% else %}
                         <a href="/page{{paginator.previous_page}}">{{ page_older }}</a>
                     {% endif %}
-                {% endif %}
-            </div>
+                </li>
+            {% endif %}
 
-            <div class="three columns offset-by-four">
-                {% if paginator.next_page %}
+            {% if paginator.next_page %}
+                <li class="next">
                     <a href="/page{{paginator.next_page}}" class="next">{{ page_newer }}</a>
-                {% endif %}
-            </div>
-        </div>
+                </li>
+            {% endif %}
+
+        </ul>
     </div>
 
-    <aside class="four columns">
+    <aside class="span4">
 
         {% include recent.html %}
         {% include projects.html %}
