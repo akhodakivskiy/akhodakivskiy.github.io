@@ -281,6 +281,12 @@ There some drawback as well
   framentation further decreasing performance.
 - There is additional pointer indirection every time Private Implementation member or method is accessed.
 
+Private Implementation alone is an extended topic. The solution in this article has many flaws, but it's probably the
+simplest implementation possible that gives more or less clear idea of the concept. Proper solution that is at the same time 
+correct, consice, and elegant probably just doesn't exist. There is [Loki Pimpl][loki] class that's takes care of all the 
+edge cases. It's really a matter of taste and preference. Use the correct but complex code or the simple but flawed 
+in some way? Use Private Implementation or not to use it at all?
+
 #### Conclusion
 
 Forward Declaration and Private Implementation can significantly reduce header dependencies within a C++ project, 
@@ -291,3 +297,4 @@ save a lot of CPU cycles avoiding unnecessary recompilation, and make your code 
 [fd]: http://en.wikipedia.org/wiki/Forward_declaration
 [pi]: http://en.wikipedia.org/wiki/Private_class_data_pattern
 [reddit]: http://www.reddit.com/r/programming/comments/14no5v/forward_declaration_and_private_implementation_in/c7ey70s
+[loki]: http://loki-lib.cvs.sourceforge.net/viewvc/loki-lib/loki/include/loki/Pimpl.h?view=markup
