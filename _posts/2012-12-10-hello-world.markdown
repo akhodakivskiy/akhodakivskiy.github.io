@@ -29,10 +29,8 @@ plain HTML file. The beauty of this approach is that I can write posts in my fav
 my GitHub repo. GitHub:Pages will then call Jekyll on the collection of files, regenerate the site and promptly publish it.
 
 Such a blog is blazing fast, the hosting is free, and the amount of control over the content and markup is just
-incredible. 
-
-In order to try something new on the front end I decided to go with [Zurb Foundation](http://foundation.zurb.com/) 
-instead of more familiar [Twitter Bootstrap](http://twitter.github.com/bootstrap/).
+incredible. And [Twitter Bootstrap](http://twitter.github.com/bootstrap/) has everything a wannabe gloggers needs to create
+pretty posts.
 
 The source code for this blog [rests here](https://github.com/akhodakivskiy/akhodakivskiy.github.com)
 
