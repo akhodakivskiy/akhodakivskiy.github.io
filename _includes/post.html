@@ -17,7 +17,7 @@
     <div class="container-fluid">
 
         {% if abstract %}
-            {{ content | truncatewords: site.abstract_size }}
+          {{ content | split: '<!-- more -->' | first }}
         {% else %}
             {{ content }}
         {% endif %}

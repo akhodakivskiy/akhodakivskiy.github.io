@@ -38,6 +38,8 @@ even a single source file might take a while.
 
 {% include two_columns.html %}
 
+<!-- more -->
+
 #### What's the big deal?
 
 In a typical coding routine one might make a few changes to a single file and then check if the software still compiles. 
